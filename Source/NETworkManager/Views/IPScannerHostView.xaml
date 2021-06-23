@@ -27,13 +27,19 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition MinWidth="{x:Static settings:GlobalStaticConfiguration.Profile_WidthCollapsed}" Width="{Binding ProfileWidth, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" MaxWidth="{x:Static settings:GlobalStaticConfiguration.Profile_MaxWidthExpanded}" />
         </Grid.ColumnDefinitions>
-        <dragablz:TabablzControl Grid.Column="0" Grid.Row="0" ClosingItemCallback="{Binding CloseItemCommand}" ItemsSource="{Binding TabItems}" SelectedIndex="{Binding SelectedTabIndex}">
+        <dragablz:TabablzControl  Grid.Column="0" Grid.Row="0"  ClosingItemCallback="{Binding CloseItemCommand}" ItemsSource="{Binding TabItems}" SelectedIndex="{Binding SelectedTabIndex}">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController InterTabClient="{Binding InterTabClient}" MoveWindowWithSolitaryTabs="False" x:Name="InterTabController" />
             </dragablz:TabablzControl.InterTabController>
+          
             <dragablz:TabablzControl.HeaderSuffixContent>
-                <Grid HorizontalAlignment="Right" Width="32" Height="32">
-                    <Button Style="{StaticResource CleanButton}" Command="{Binding AddTabCommand}" ToolTip="{x:Static localization:Strings.NewTab}" Focusable="False">
+                <Grid HorizontalAlignment="Right" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="36" />
+                        <ColumnDefinition Width="32" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="1" Style="{StaticResource CleanButton}" Command="{Binding AddTabCommand}" ToolTip="{x:Static localization:Strings.NewTab}" Focusable="False">
                         <Rectangle Width="16" Height="16">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill" Visual="{iconPacks:Material Kind=Plus}" />
@@ -50,8 +56,20 @@
                             </Rectangle.Style>
                         </Rectangle>
                     </Button>
+                    <Grid Grid.Column="2">
+                        <Grid.Style>
+                            <Style TargetType="{x:Type Grid}">                                
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ExpandProfileView}" Value="False">
+                                        <!--<Setter Property="Width" Value="{Binding ExpandedProfileWidth}" />-->
+                                        <Setter Property="Width" Value="150" />
+                                    </DataTrigger>
+                                </Style.Triggers>                                
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
                 </Grid>
-            </dragablz:TabablzControl.HeaderSuffixContent>
+            </dragablz:TabablzControl.HeaderSuffixContent>                    
         </dragablz:TabablzControl>
         <Grid Grid.Column="0" VerticalAlignment="Center">
             <Grid.Style>
@@ -102,8 +120,8 @@
             </Button>
         </Grid>
         <GridSplitter Grid.Column="1" Style="{StaticResource ProfileGridSplitter}" />
-        <Expander Grid.Column="2" x:Name="ExpanderProfiles" Header="{x:Static localization:Strings.Profiles}" Style="{StaticResource RightExpander}" IsExpanded="{Binding ExpandProfileView}">
-            <Border Margin="0,48,0,0" BorderBrush="{DynamicResource MahApps.Brushes.Gray8}" BorderThickness="0,1,0,0" Padding="10">
+        <Expander Grid.Column="2" x:Name="ExpanderProfiles" Header="{x:Static localization:Strings.Profiles}" Style="{StaticResource RightExpander}" IsExpanded="{Binding ExpandProfileView}" Margin="0,48,0,0">
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray8}" BorderThickness="0,1,0,0" Padding="10">
             <Grid>
                 <Grid Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType= {x:Type mah:MetroWindow}}, Path=DataContext.IsProfileFileLocked, Converter={StaticResource BooleanReverseToVisibilityCollapsedConverter}}">
                     <Grid.RowDefinitions>
@@ -129,7 +147,6 @@
                                                 </ControlTemplate>
                                             </Setter.Value>
                                         </Setter>
-
                                     </Style>
                                 </ToggleButton.Style>
                                 <Rectangle Width="16" Height="16">

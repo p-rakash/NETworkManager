@@ -136,6 +136,8 @@ namespace NETworkManager.ViewModels
                 OnPropertyChanged();
             }
         }
+
+      //  public double ExpandedProfileWidth => SettingsManager.Current.IPScanner_ProfileWidth - ProfileWidth.Value;
         #endregion
         #endregion
 

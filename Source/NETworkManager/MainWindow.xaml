@@ -226,7 +226,8 @@
                                 </Button.Style>
                                 <Rectangle Width="24" Height="24">
                                     <Rectangle.OpacityMask>
-                                        <VisualBrush Stretch="Uniform" Visual="{iconPacks:Modern Kind=Magnify}" />
+                                       <!-- <VisualBrush Stretch="Uniform" Visual="{iconPacks:Modern Kind=Magnify}" /> -->
+                                        <VisualBrush Stretch="Uniform" Visual="{iconPacks:VaadinIcons Kind=Sitemap}" /> 
                                     </Rectangle.OpacityMask>
                                     <Rectangle.Style>
                                         <Style TargetType="{x:Type Rectangle}">
